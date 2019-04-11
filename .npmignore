@@ -1,0 +1,7 @@
+.git
+Changlog.md
+node_modules/
+src/
+webpack.config.js
+package-lock.json
+.babelrc
