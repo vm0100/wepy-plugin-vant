@@ -4,7 +4,7 @@ const getPageFilter = (pagePath, fileType) => {
   const pagePaths = typeof pagePath === "string" ? [pagePath] : pagePath;
   const regs = [];
   pagePaths.forEach(path => {
-        regs.push(path + '([\\/]|[\\\\]).*' + fileType + '$')  // eslint-disable-line
+    regs.push(path + '([\\/]|[\\\\]).*' + fileType + '$')  // eslint-disable-line
   });
   return new RegExp(regs.join("|"));
 };
@@ -15,6 +15,9 @@ const getVantFilter = (fileType, targetPath = TARGET_DIR_NAME) => {
 
 // page filter
 const getPageConfigFilter = (pagePath) => getPageFilter(pagePath, "json");
+
+// wxss filter
+const getWxssFilter = (pagePath) => getPageFilter(pagePath, "wxss");
 
 // vant filter
 const getVantWxssFilter = () => getVantFilter("wxss");
@@ -36,13 +39,15 @@ export {
   getVantWxssFilter,
   getPageConfigFilter,
   getVantWxmlFilter,
-  getPixelUnitMultiple
+  getPixelUnitMultiple,
+  getWxssFilter
 };
 
 export default {
   getVantWxssFilter,
   getPageConfigFilter,
   getVantWxmlFilter,
-  getPixelUnitMultiple
+  getPixelUnitMultiple,
+  getWxssFilter
 }
-;
+  ;

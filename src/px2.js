@@ -1,8 +1,8 @@
 import postcss from "postcss";
 import px2units from "postcss-px2units";
 import { readFileSync } from "fs";
-import { dirname } from "path";
-import { getVantWxssFilter, getPixelUnitMultiple, getVantWxmlFilter } from "./units";
+import { dirname, basename } from "path";
+import { getVantWxssFilter, getPixelUnitMultiple, getVantWxmlFilter, getWxssFilter } from "./units";
 
 const EXCLUDE_WXSS = ["icon"];
 const INCLUDE_WXML = ["icon", "progress"];
@@ -42,16 +42,21 @@ const wxmlPx2 = (op, setting) => {
   return op;
 };
 
-const px2 = async(op, setting) => {
-  const wxssFilter = getVantWxssFilter();
-  const wxmlFilter = getVantWxmlFilter();
+const px2 = async (op, setting) => {
+  const vantWxssFilter = getVantWxssFilter();
+  const vantWxmlFilter = getVantWxmlFilter();
+  const wxssFilter = getWxssFilter(setting.pagePath);
 
-  if (wxssFilter.test(op.file) && !EXCLUDE_WXSS.includes(dirname(op.file).replace(/^.*([\/]|[\\])/, ""))) {
+  if (vantWxssFilter.test(op.file) && !EXCLUDE_WXSS.includes(dirname(op.file).replace(/^.*([\/]|[\\])/, ""))) {
     op = await wxssPx2(op, setting);
   }
 
-  if (wxmlFilter.test(op.file) && INCLUDE_WXML.includes(dirname(op.file).replace(/^.*([\/]|[\\])/, ""))) {
+  if (vantWxmlFilter.test(op.file) && INCLUDE_WXML.includes(dirname(op.file).replace(/^.*([\/]|[\\])/, ""))) {
     op = await wxmlPx2(op, setting);
+  }
+
+  if (wxssFilter.test(op.file)) {
+    op = await wxssPx2(op, setting);
   }
 
   return op;

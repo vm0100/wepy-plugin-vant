@@ -1,5 +1,5 @@
 import { readdirSync } from "fs";
-import { join, resolve, relative, dirname } from "path";
+import { join, resolve, relative, dirname, basename } from "path";
 import { TARGET_DIR_NAME, VERSION_FILE_NAME, COMPONENT_IGNORE } from "./config";
 
 import { getPageConfigFilter } from "./units";
