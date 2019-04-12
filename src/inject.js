@@ -20,7 +20,7 @@ const getInjectComponents = (globalConfig, pageConfig) => {
     vantConfig = pageConfig.vant;
     delete pageConfig.vant;
   }
-  return [...new Set(globalInject.concat(vantConfig))]
+  return [...new Set(globalInject.concat(vantConfig))].filter(component => component);
 };
 
 const injectComponents = (op, setting) => {
@@ -33,8 +33,9 @@ const injectComponents = (op, setting) => {
     const injectComponents = getInjectComponents(globalConfig, pageConfig); // 获取要注入的组件
     const relativePath = relative(dirname(op.file), resolve("dist/")); // 获取相对的路径
     pageConfig.usingComponents = pageConfig.usingComponents || {};
-    injectComponents.filter(component => component)
-      .forEach(component => (pageConfig.usingComponents[globalConfig.prefix + component] = normalize(relativePath) + "/components/" + TARGET_DIR_NAME + "/" + component + "/index"));
+    injectComponents.forEach(component => {
+      pageConfig.usingComponents[globalConfig.prefix + component] = normalize(relativePath) + "/components/" + TARGET_DIR_NAME + "/" + component + "/index";
+    });
 
     op.code = JSON.stringify(pageConfig); // 更新文件内容
     op.output && op.output({
