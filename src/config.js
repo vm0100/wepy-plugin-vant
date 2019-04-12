@@ -4,7 +4,7 @@ export const TARGET_DIR_NAME = "vant-weapp";
 export const VERSION_FILE_NAME = ".version";
 
 export const COMPONENT_IGNORE = {
-  "base": true
+  "common": true
 };
 export const DEFAULT_CONFIG = {
   pagePath: "pages",
