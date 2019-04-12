@@ -18,7 +18,7 @@ const copyVantToSrc = () => {
     const copyVersion = readFileSync(versionPath, "utf-8");
     if (copyVersion === VANT_VERISON) return; // 比对版本
   }
-
+  console.log(sourcePath);
   copydir.sync(sourcePath, targetPath); // 复制文件夹
   writeFileSync(versionPath, VANT_VERISON); // 添加版本文件
   addCopyFolderToGitIgnore(); // 把复制过去的文件夹添加.gitignore
@@ -27,11 +27,11 @@ const copyVantToSrc = () => {
 // 添加git忽略
 const addCopyFolderToGitIgnore = () => {
   if (!existsSync(".gitignore")) {
-    writeFileSync(".gitignore", "src/" + TARGET_DIR_NAME + "/");
+    writeFileSync(".gitignore", "src/components/" + TARGET_DIR_NAME + "/");
   } else {
     let ignore = readFileSync(".gitignore", "utf-8");
-    if (!ignore.match("src/" + TARGET_DIR_NAME)) {
-      ignore += "\nsrc/" + TARGET_DIR_NAME + "/";
+    if (!ignore.match("src/components/" + TARGET_DIR_NAME)) {
+      ignore += "\nsrc/components/" + TARGET_DIR_NAME + "/";
       writeFileSync(".gitignore", ignore);
     }
   }

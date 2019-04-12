@@ -6,11 +6,11 @@ import px2 from './px2';
 import { DEFAULT_CONFIG } from './config';
 
 // check vant is installed or not
-// try {
-//     eval("require('vant-weapp/package.json')");
-// } catch (e) {
-//     throw new Error('\n 未检测到: vant-weapp \n 您是否安装 vant-weapp ? \n 尝试 npm i -S https://github.com/TalkingData/vant-weapp.git');
-// }
+try {
+    eval("require('vant-weapp/package.json')");
+} catch (e) {
+    throw new Error('\n 未检测到: vant-weapp \n 您是否安装 vant-weapp ? \n 尝试 npm i -S vant-weapp');
+}
 
 export default class WepyPluginVant {
     constructor(c = {}) {
