@@ -24,12 +24,7 @@
     // ...
   }
 ```
-4. 运行项目，即可使用Vant的全部组件啦~~   如:`<i-button></i-button>`
-
-5. `$toast`、`$Message`的引入
-```javascript
-    import {$Toast, $Message} from 'wepy-vant'
-```
+4. 运行项目，即可使用Vant的全部组件啦~~   如:`<van-button></van-button>`
 
 ## 全局注入配置
 
@@ -49,8 +44,8 @@
         // inject: false                           不注入任何组件 
         // inject:['button','icon',...]            只注入部分组件
                 
-        prefix: 'i-',
-        // 可选，默认为 'i-', 组件名前缀。 如果使用其他组件名前缀, 通过此值设置。
+        prefix: 'van',
+        // 可选，默认为 'van', 组件名前缀。 如果使用其他组件名前缀, 通过此值设置。
         // 参考配置：
         // prefix: 'a-'                            button的组件名为'a-button'
 
