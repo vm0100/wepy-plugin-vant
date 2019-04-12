@@ -11,12 +11,16 @@ const getInjectComponents = (globalConfig, pageConfig) => {
   const components = readdirSync(targetPath).filter(component => (!COMPONENT_IGNORE[component] && component != VERSION_FILE_NAME));
 
   let globalInject = globalConfig.inject ? components : [];
-  if (typeof globalConfig.inject !== "boolean") {
+  if (typeof globalConfig.inject !== "boolean" && globalConfig.inject instanceof Array) {
     globalInject = globalConfig.inject;
   }
 
-  const pageInject = pageConfig.vant;
-  return pageInject || globalInject;
+  let vantConfig;
+  if (pageConfig.hasOwnProperty("vant")) {
+    vantConfig = pageConfig.vant;
+    delete pageConfig.vant;
+  }
+  return [...new Set(globalInject.concat(vantConfig))]
 };
 
 const injectComponents = (op, setting) => {
@@ -29,8 +33,8 @@ const injectComponents = (op, setting) => {
     const injectComponents = getInjectComponents(globalConfig, pageConfig); // 获取要注入的组件
     const relativePath = relative(dirname(op.file), resolve("dist/")); // 获取相对的路径
     pageConfig.usingComponents = pageConfig.usingComponents || {};
-    injectComponents.forEach(component =>
-      (pageConfig.usingComponents[globalConfig.prefix + component] = normalize(relativePath) + "/components/" + TARGET_DIR_NAME + "/" + component + "/index"));
+    injectComponents.filter(component => component)
+      .forEach(component => (pageConfig.usingComponents[globalConfig.prefix + component] = normalize(relativePath) + "/components/" + TARGET_DIR_NAME + "/" + component + "/index"));
 
     op.code = JSON.stringify(pageConfig); // 更新文件内容
     op.output && op.output({
