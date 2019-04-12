@@ -1,5 +1,6 @@
 # wepy-plugin-vant
 > 一个Vant的wepy插件
+>  (其实就是把jardenliu/wepy-plugin-iview修改成了vant的，因为我觉得vant比较好用，如果侵权的话我会删掉的)
 
 ## 特性
 * 自动注入
