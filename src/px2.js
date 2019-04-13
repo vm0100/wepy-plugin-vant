@@ -8,7 +8,7 @@ const EXCLUDE_WXSS = ["icon"];
 const INCLUDE_WXML = ["icon", "progress"];
 
 const wxssPx2 = (op, setting) => {
-  if(!op.code) return op;
+  if (!op.code) return op;
 
   op.output && op.output({
     action: "变更",
@@ -56,8 +56,10 @@ const px2 = async (op, setting) => {
     op = await wxmlPx2(op, setting);
   }
 
-  if (wxssFilter.test(op.file)) {
-    op = await wxssPx2(op, setting);
+  if (!setting.isVantOnly) {
+    if (wxssFilter.test(op.file)) {
+      op = await wxssPx2(op, setting);
+    }
   }
 
   return op;

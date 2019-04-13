@@ -14,6 +14,7 @@ export const DEFAULT_CONFIG = {
     inject: true,
     prefix: "van",
     px2: {
+      isVantOnly: false,
       relative: 400,
       decimalPlaces: 2,
       comment: "no",

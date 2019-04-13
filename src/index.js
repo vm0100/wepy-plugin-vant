@@ -16,6 +16,9 @@ export default class WepyPluginVant {
   constructor(c = {}) {
     copyVant(); // 拷贝Vant-weapp到src下
     c = merge(c, { isPx2On: c.config && c.config.px2 });
+    if (c.isPx2On) {
+      c = merge(c, { isVantOnly: c.config.isVantOnly });
+    }
     this.setting = merge(DEFAULT_CONFIG, c);
   }
 

@@ -54,11 +54,11 @@
         // 可选，默认为false, 开启px单位转换。 可选值 true, false, config object {...}
        // 参考配置：
        // px2: true
-       // px2: {}
 
       //  px2: {
+      //       isVantOnly: false,      // 这个值是启用对于其他wxss的rpx处理
       //       relative: 400,          // 相对值,rpx是 相对于750宽度 ；  rem，em 是相对的 font-size
-      //       decimalPlaces: 2,       //  保留的小数位数
+      //       decimalPlaces: 2,       // 保留的小数位数
       //       targetUnits: 'rpx'      // 目标转换的单位 支持 rpx rem em px
       //   }
       }
