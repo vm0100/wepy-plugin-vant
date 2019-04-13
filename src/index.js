@@ -3,6 +3,7 @@ import copyVant from "./copy";
 import injectComponents from "./inject";
 import px2 from "./px2";
 import { DEFAULT_CONFIG } from "./config";
+import { extname } from "path";
 
 // check vant is installed or not
 try {
@@ -17,16 +18,18 @@ export default class WepyPluginVant {
     c = merge(c, { isPx2On: c.config && c.config.px2 });
     this.setting = merge(DEFAULT_CONFIG, c);
   }
+
   apply(op) {
     const setting = this.setting;
-    const asyncApply = async() => {
-      if (setting.isPx2On) {
+    const asyncApply = async () => {
+      let ext = extname(op.file);
+      if (setting.isPx2On && (ext === ".wxss" || ext === ".wxml")) {
         op = await px2(op, setting);
       }
       op = injectComponents(op, setting);
     };
     asyncApply().then(() => {
       op.next();
-    });
+    })
   }
 }

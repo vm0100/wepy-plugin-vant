@@ -8,7 +8,8 @@ const EXCLUDE_WXSS = ["icon"];
 const INCLUDE_WXML = ["icon", "progress"];
 
 const wxssPx2 = (op, setting) => {
-  const code = readFileSync(op.file, "utf-8");
+  if(!op.code) return op;
+
   op.output && op.output({
     action: "变更",
     file: op.file
@@ -21,7 +22,7 @@ const wxssPx2 = (op, setting) => {
 
   const prefixer = postcss([px2units(config)]);
 
-  return prefixer.process(code, { from: op.file }).then((result) => {
+  return prefixer.process(op.code, { from: op.file }).then((result) => {
     op.code = result.css;
     return op;
   }).catch(e => {
