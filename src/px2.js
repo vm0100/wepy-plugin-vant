@@ -8,6 +8,30 @@ const EXCLUDE_WXSS = ["icon"];
 const INCLUDE_WXML = ["icon", "progress"];
 
 const wxssPx2 = (op, setting) => {
+  const code = readFileSync(op.file, "utf-8");
+  op.output && op.output({
+    action: "变更",
+    file: op.file
+  });
+
+  const config = Object.assign({}, setting.config.px2, {
+    divisor: 1,
+    multiple: getPixelUnitMultiple(setting.config.px2.targetUnits, setting.config.px2.relative)
+  });
+
+  const prefixer = postcss([px2units(config)]);
+
+  return prefixer.process(code, { from: op.file }).then((result) => {
+    op.code = result.css;
+    return op;
+  }).catch(e => {
+    op.err = e;
+    op.catch();
+    return op;
+  });
+};
+
+const pageWxssPx2 = (op, setting) => {
   if (!op.code) return op;
 
   op.output && op.output({
@@ -30,7 +54,7 @@ const wxssPx2 = (op, setting) => {
     op.catch();
     return op;
   });
-};
+}
 
 const wxmlPx2 = (op, setting) => {
   const code = readFileSync(op.file, "utf-8");
@@ -58,7 +82,7 @@ const px2 = async (op, setting) => {
 
   if (!setting.isVantOnly) {
     if (wxssFilter.test(op.file)) {
-      op = await wxssPx2(op, setting);
+      op = await pageWxssPx2(op, setting);
     }
   }
 
