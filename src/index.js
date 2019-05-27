@@ -12,7 +12,7 @@ export default class WepyPluginVant {
       c = merge(c, { isVantOnly: c.config.isVantOnly });
     }
     this.setting = merge(DEFAULT_CONFIG, c);
-    this.setting.uiDir = this.setting.ui + "-weapp";
+    this.setting.uiDir = this.setting.config.ui + "-weapp";
     copyVant(this.setting.uiDir);
   }
 
