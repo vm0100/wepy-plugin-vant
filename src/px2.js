@@ -68,8 +68,8 @@ const wxmlPx2 = (op, setting) => {
 };
 
 const px2 = async (op, setting) => {
-  const vantWxssFilter = getVantWxssFilter();
-  const vantWxmlFilter = getVantWxmlFilter();
+  const vantWxssFilter = getVantWxssFilter(setting.uiDir);
+  const vantWxmlFilter = getVantWxmlFilter(setting.uiDir);
   const wxssFilter = getWxssFilter(setting.pagePath);
 
   if (vantWxssFilter.test(op.file) && !EXCLUDE_WXSS.includes(dirname(op.file).replace(/^.*([\/]|[\\])/, ""))) {

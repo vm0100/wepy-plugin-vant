@@ -1,5 +1,3 @@
-import { TARGET_DIR_NAME } from "./config";
-
 const getPageFilter = (pagePath, fileType) => {
   const pagePaths = typeof pagePath === "string" ? [pagePath] : pagePath;
   const regs = [];
@@ -9,7 +7,7 @@ const getPageFilter = (pagePath, fileType) => {
   return new RegExp(regs.join("|"));
 };
 
-const getVantFilter = (fileType, targetPath = TARGET_DIR_NAME) => {
+const getVantFilter = (fileType, targetPath) => {
   return new RegExp(`${targetPath}([\\/]|[\\\\]).*\\.${fileType}$`);
 };
 
@@ -20,8 +18,8 @@ const getPageConfigFilter = (pagePath) => getPageFilter(pagePath, "json");
 const getWxssFilter = (pagePath) => getPageFilter(pagePath, "wxss");
 
 // vant filter
-const getVantWxssFilter = () => getVantFilter("wxss");
-const getVantWxmlFilter = () => getVantFilter("wxml");
+const getVantWxssFilter = (componentsDir) => getVantFilter("wxss", componentsDir);
+const getVantWxmlFilter = (componentsDir) => getVantFilter("wxml", componentsDir);
 
 const RPX_RELATIVE = 750;
 
@@ -49,5 +47,4 @@ export default {
   getVantWxmlFilter,
   getPixelUnitMultiple,
   getWxssFilter
-}
-  ;
+};
